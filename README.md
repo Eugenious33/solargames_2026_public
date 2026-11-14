@@ -192,3 +192,7 @@ python src/fb/submit.py --rule rules/first_final.json --ens hard5,soft5,maskrcnn
 
 Training: `unet_hard_f$k` with `--target tfull --aug strong --steps 18000`, then `unet_soft_f$k` with
 `--target tsoftc --init unet_hard_f$k --steps 4000 --lr 1.5e-4`. Out-of-fold PQ 0.457, public LB 0.40.
+
+## License
+
+MIT (see `LICENSE`), as the competition rules require an OSI-approved license without limits on commercial use.
