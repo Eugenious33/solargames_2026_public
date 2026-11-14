@@ -66,6 +66,24 @@ Why it looks like this:
   disk centre.
 - **One piece.** An annotated filament is one piece without holes. Our masks are repaired to obey the same rule.
 
+## What we tried and left out
+
+Every idea was tested against the same hold-out protocol (thresholds fitted without the scored frames) before it could
+enter the pipeline. The code of the main lines is kept in the repository.
+
+| Idea | Result | Decision |
+|---|---|---|
+| Flat-field: divide the frame by its centre-to-limb profile | pixel AP of brightness alone 0.011 -> 0.171 | in the pipeline (`disk.py`, `data.py`) |
+| Classical filter bank as extra U-Net input channels (`filters.py`): Hessian dark ridge, starlet wavelet planes, elongated even Gabor filters over orientations, Frangi vesselness, local contrast, black top-hat | Strong alone (pixel AP per channel: dark ridge 0.335, starlet 0.313, Gabor 0.307), but a U-Net with 8 filter channels scores PQ 0.406 vs 0.421 on the plain frame (same 6k-step recipe): the network learns these features itself | dropped for the U-Nets; three of them (frame, starlet band-pass, dark ridge) form the input of Mask R-CNN, where a different input adds diversity to the blend |
+| Learnable Fourier front-end (`spectral.py`, `--lsf 1`): log-Gabor-like isotropic and oriented transfer functions with free radial profiles, learned in the frequency domain | PQ 0.416 vs 0.421; the learned pass-bands barely moved (periods 11 / 21 / 49 / 91 px from the initial 12 / 24 / 48 / 96). With the filter bank and a learnable per-pixel mixer (`--mix 1`), long training: 0.433 vs 0.431 | dropped |
+| More data: pseudo-labelled frames from the public GONG archive (tested only, not used) | learning curve: +0.008-0.010 per doubling of the training set; the archive FITS frames look different from the competition JPEGs (the same network scores 0.357 on them vs 0.406) | dropped |
+| Larger network (ResNeXt-101, 4x parameters) | same PQ; no gap between training and unseen frames for any model | dropped |
+| A fourth encoder (ConvNeXt, HRNet, HGNetV2, Twins-SVT, DaViT, TinyViT, NextViT) | at most +0.001 in the blend, although several are stronger alone | dropped |
+| SAM 2.1 as a contour refiner | 0.451 vs 0.456 | dropped |
+| Network conditioned on the annotator (FiLM) | 0.4485 vs 0.4510 even with the annotator known | dropped |
+| Re-labelling the training set with our own network | -0.007 | dropped |
+| Gap network for touching filaments: a U-Net trained on the gap between neighbouring objects of each record, used to cut the blend | it finds the gaps (pixel AP 0.25, 670x chance), but every way of cutting loses (-0.004 / -0.001): the annotators themselves disagree whether two pieces are one filament | dropped |
+
 ## Repository layout
 
 ```text
