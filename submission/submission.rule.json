@@ -1,0 +1,56 @@
+{
+ "rule": "fb/rules/enc3_det_1p.json",
+ "ens": "softs5,eff5,pvt5,det_r50_s0+det_r50_f1_s0+det_r50_f2_s0+det_r50_f3_s0+det_r50_f4_s0",
+ "single": "ss_f0_h,ss_f1_h,ss_f2_h,ss_f3_h,ss_f4_h;ef_f0_h,ef_f1_h,ef_f2_h,ef_f3_h,ef_f4_h;pv_f0_h,pv_f1_h,pv_f2_h,pv_f3_h,pv_f4_h;det_r50_s0,det_r50_f1_s0,det_r50_f2_s0,det_r50_f3_s0,det_r50_f4_s0",
+ "calib": "paired",
+ "report": {
+  "frames": 180,
+  "target_kept_per_frame": 6.552222222222222,
+  "kept_per_frame_as_is": 6.466666666666667,
+  "mean_shift": 0.008000000000000007,
+  "target_area_per_object": 2014.788901422599,
+  "area_per_object_as_is": 2034.3213058419244,
+  "inner_from": 0.5,
+  "inner_to": 0.5051618814468384
+ },
+ "applied": {
+  "maps": [
+   "unet_softs",
+   "unet_eff",
+   "unet_pvt",
+   "det"
+  ],
+  "weights": [
+   0.2333,
+   0.2333,
+   0.2333,
+   0.3
+  ],
+  "lo": 0.2,
+  "inner": 0.5051618814468384,
+  "peak": 0.0,
+  "zones": [
+   [
+    0.8,
+    0.592,
+    300.0
+   ],
+   [
+    0.9,
+    0.592,
+    600.0
+   ],
+   [
+    9.0,
+    0.692,
+    100.0
+   ]
+  ],
+  "oof": {
+   "kept_per_frame": 6.5134370579915135,
+   "area_per_frame": 13394.851485148514,
+   "note": "E32: one soft U-Net per encoder (R34, EfficientNetV2-S, PVTv2-B2) + Mask R-CNN, no hard U-Net; rule = fam5.py fit on all 707 frames, outline level 0.5"
+  },
+  "one_piece": 2
+ }
+}

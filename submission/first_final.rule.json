@@ -1,0 +1,68 @@
+{
+ "rule": "rules/final.json",
+ "ens": "hard5,soft5,maskrcnn_f0+maskrcnn_f1+maskrcnn_f2+maskrcnn_f3+maskrcnn_f4",
+ "single": "hard_f0_h,hard_f1_h,hard_f2_h,hard_f3_h,hard_f4_h;soft_f0_h,soft_f1_h,soft_f2_h,soft_f3_h,soft_f4_h;maskrcnn_f0,maskrcnn_f1,maskrcnn_f2,maskrcnn_f3,maskrcnn_f4",
+ "calib": "paired",
+ "report": {
+  "frames": 180,
+  "target_kept_per_frame": 6.441111111111111,
+  "kept_per_frame_as_is": 6.066666666666666,
+  "mean_shift": 0.017499999999999988,
+  "target_area_per_object": 1979.7118854570758,
+  "area_per_object_as_is": 2004.6712454212454,
+  "inner_from": 0.7,
+  "inner_to": 0.6832941174507141
+ },
+ "applied": {
+  "maps": [
+   "unet_hard",
+   "unet_soft",
+   "maskrcnn"
+  ],
+  "weights": [
+   0.35,
+   0.35,
+   0.3
+  ],
+  "lo": 0.2,
+  "inner": 0.6832941174507141,
+  "peak": 0.0,
+  "zones": [
+   [
+    0.8,
+    0.6825,
+    300.0
+   ],
+   [
+    0.9,
+    0.7325,
+    600.0
+   ],
+   [
+    9.0,
+    0.8625,
+    100.0
+   ]
+  ],
+  "oof": {
+   "pq_fit": 0.4564543022476813,
+   "pq_honest_zones": 0.4556158342097051,
+   "pq_honest_uniform": 0.45110048003374714,
+   "pq_fit_uniform": 0.4530178165987269,
+   "uniform": {
+    "lo": 0.2,
+    "inner": 0.7,
+    "mean": 0.7,
+    "area": 300
+   },
+   "kept_per_frame": 6.312588401697313,
+   "area_per_frame": 12854.04667609618,
+   "kept_by_zone": [
+    5.57991513437058,
+    0.7298444130127298,
+    0.002828854314002829
+   ]
+  },
+  "one_piece": 2
+ }
+}
